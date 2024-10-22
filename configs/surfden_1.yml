@@ -1,0 +1,57 @@
+data:
+    # dataset: "test_B_mag_0608_all_cutden1e21.npy"
+    # dataset: "test_B_mag_0828_TrainB1050_cutden1e21.npy"
+    # dataset: "test_B_mag_pos_0608_all_cutden1e21.npy"
+    dataset: "train_Bpos_enzo_4chan_all.npy"
+    # dataset: "surfden_numden_log18_renorm7_1228.npy"
+    # dataset: "surfden_numden_log19_renorm8_1228.npy"
+    image_size: 128
+    channels: 4
+    num_workers: 4
+    # data_dir: "/ADA_Storage/ddh9ms/xuduo/project_CASI/CASI_tf1/data/temp_co/"
+    # data_dir: "/scratch/users/xuduo117/project_CASI/Diffusion_Bmag/data_temp_npy/"
+    data_dir: "/fs/lustre/scratch/xuduo/UVA/Rivanna/Delleval/trainingset_enzo/npy_array/"
+    conditional: True
+    save_model_dir: "/fs/lustre/cita/xuduo/project_ML/DDPM_Bmag/save_model/"
+    save_test_dir: "/fs/lustre/cita/xuduo/project_ML/DDPM_Bmag/results/test/"
+    model_name: "test_Bmag_ddim_0516_bz_all"
+    # model_name: "test_BmagPOS_ddim_0911_all"
+    # model_name: "test_Bmag_ddim_0911mask_B1050_all"
+    # model_name: "test_Bmag_ddim_pos_0608_all"
+
+model:
+    in_channels: 4
+    out_ch: 1
+    ch: 128
+    ch_mult: [1, 2, 3, 4]
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    dropout: 0.0
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.0001
+    beta_end: 0.02
+    num_diffusion_timesteps: 1000
+
+training:
+    patch_n: 8
+    batch_size: 8
+    n_epochs: 600
+    n_iters: 2000000
+    snapshot_freq: 10000
+    validation_freq: 10000
+
+sampling:
+    batch_size: 4
+    last_only: True
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.00002
+    amsgrad: False
+    eps: 0.00000001
