@@ -25,7 +25,9 @@ def inverse_data_transform(X):
 
 
 def ddim_inversion(x, x_cond, seq, model, b, eta=0.):
-    with torch.no_grad():
+    # with torch.no_grad():
+
+    return
         
 
 
