@@ -15,8 +15,8 @@ Below we show the predicted results from our Astro-DSB model on **both synthetic
 
 ### Some TODOs
 
-- [] Pre-trained model checkpoints
-- [] Datasets (if they are interested to our communties)
+- [ ] Pre-trained model checkpoints
+- [ ] Datasets (if they are interesting to our communities)
 
 
 ## 1. Take-away
@@ -68,7 +68,7 @@ If you find our work interesting and useful, please consider citing it.
 }
 ```
 
-If you are interested in this line of work, there are some relevant projects we have done:
+If you are more broadly interested in this line of work, there are some relevant projects we have done:
 
 - Duo Xu, Jonathan Tan, Chia-Jung Hsu, and Ye Zhu. Denoising Diffusion Probabilistic Models to Predict the Density of Molecular Clouds, in The Astrophysics Journal (**APJ**), 2023.
 
