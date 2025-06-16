@@ -13,6 +13,12 @@ Below we show the predicted results from our Astro-DSB model on **both synthetic
     <img src="assets/taurus.png" width="750">
 
 
+### Some TODOs
+
+- [] Pre-trained model checkpoints
+- [] Datasets (if they are interested to our communties)
+
+
 ## 1. Take-away
 
 We introduce *Astro-DSB* tailored for astrophysical observational inverse predictions, featuring a variant of diffusion Schrödinger generative modeling techniques that learns the optimal transport between the observational distribution and the true physical states. 
@@ -50,7 +56,7 @@ python train.py --name 'expid' --n-gpu-per-node $N
 python eval.py --name 'expid' 
 ```
 
-## 5. Citation
+## 5. Citation and other related works
 
 If you find our work interesting and useful, please consider citing it.
 ```
@@ -62,6 +68,13 @@ If you find our work interesting and useful, please consider citing it.
 }
 ```
 
-## 6. Acknowledgements
+If you are interested in this line of work, there are some relevant projects we have done:
+
+- Duo Xu, Jonathan Tan, Chia-Jung Hsu, and Ye Zhu. Denoising Diffusion Probabilistic Models to Predict the Density of Molecular Clouds, in The Astrophysics Journal (**APJ**), 2023.
+
+- Duo Xu, Jenna Karcheski, Chi-Yan Law, Ye Zhu, Chia-Jung Hsu, and Jonathan Tan. Exploring Magnetic Fields in Molecular Clouds through Denoising Diffusion Probabilistic Models, in The Astrophysics Journal (**APJ**), 2025. 
+
+
+### Acknowledgements
 
 We would like to thank the authors of previous related projects for generously sharing their code, especially the [IS2B](https://github.com/NVlabs/I2SB), from which our code is adapted.
