@@ -27,8 +27,6 @@ class AllData:
         Y_data_all=data_all_array[1,:,:,:,:]
 
         x_train, x_test, y_train, y_test = train_test_split(X_data_all, Y_data_all, test_size=0.205,random_state=43)
-        print("check training and testing splits:", np.shape(x_train))
-        exit()
 
 
         train_dataset = AllDataset(x_train,y_train,

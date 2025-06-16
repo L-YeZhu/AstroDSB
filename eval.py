@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Core training code for Astro-DSB for astrophysical observational inversion, for submission review only
+# Core training code for Astro-DSB for astrophysical observational inversion
 # ---------------------------------------------------------------------------------------------------------------------
 
 from __future__ import absolute_import, division, print_function, unicode_literals

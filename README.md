@@ -34,7 +34,34 @@ conda env create --file requirements.yaml python=3
 conda activate astrodsb
 ```
 
-## 3. Traning
+## 3. Dataset preparation
 
+In our work, we train the proposed Astro-DSB model with density and magnetic field data synthesized from the GMC simulations. To work on your customized dataset, you may pro-process the dataset following the format in the ```dataset``` folder.
 
+## 4. Model training and inference
 
+You may use the following commands to train and test the Astro-DSB model, with 'expid' to be the specified experiment ID and 'N' to be the number of GPUs per node.
+
+```
+python train.py --name 'expid' --n-gpu-per-node $N
+```
+
+```
+python eval.py --name 'expid' 
+```
+
+## 5. Citation
+
+If you find our work interesting and useful, please consider citing it.
+```
+@article{zhu2025dynamic,
+  title={Dynamic Diffusion Schrödinger Bridge in Astrophysical Observational Inversions},
+  author={Zhu, Ye and Xu, Duo and Deng, Zhiwei and Tan, Jonathon C and Russakovsky, Olga},
+  journal={arXiv preprint arXiv:2506.08065},
+  year={2025}
+}
+```
+
+## 6. Acknowledgements
+
+We would like to thank the authors of previous related projects for generously sharing their code, especially the [IS2B](https://github.com/NVlabs/I2SB), from which our code is adapted.
