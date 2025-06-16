@@ -1,10 +1,3 @@
-# ---------------------------------------------------------------
-# Copyright (c) 2023, NVIDIA CORPORATION. All rights reserved.
-#
-# This work is licensed under the NVIDIA Source Code License
-# for I2SB. To view a copy of this license, see the LICENSE file.
-# ---------------------------------------------------------------
-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os
@@ -23,7 +16,7 @@ from torch.multiprocessing import Process
 from logger import Logger
 from distributed_util import init_processes
 from corruption import build_corruption
-from dataset import imagenet
+import datasets
 from i2sb import Runner, download_ckpt
 
 import colored_traceback.always
@@ -43,7 +36,7 @@ def set_seed(seed):
 def create_training_options():
     # --------------- basic ---------------
     parser = argparse.ArgumentParser()
-    parser.add_argument("--seed",           type=int,   default=0)
+    parser.add_argument("--seed",           type=int,   default=42)
     parser.add_argument("--name",           type=str,   default=None,        help="experiment ID")
     parser.add_argument("--ckpt",           type=str,   default=None,        help="resumed checkpoint name")
     parser.add_argument("--gpu",            type=int,   default=None,        help="set only if you wish to run on a particular device")
@@ -54,7 +47,7 @@ def create_training_options():
     # parser.add_argument("--amp",            action="store_true")
 
     # --------------- SB model ---------------
-    parser.add_argument("--image-size",     type=int,   default=256)
+    parser.add_argument("--image-size",     type=int,   default=128)
     parser.add_argument("--corrupt",        type=str,   default=None,        help="restoration task")
     parser.add_argument("--t0",             type=float, default=1e-4,        help="sigma start time in network parametrization")
     parser.add_argument("--T",              type=float, default=1.,          help="sigma end time in network parametrization")
@@ -69,9 +62,9 @@ def create_training_options():
     parser.add_argument("--add-x1-noise",   action="store_true",             help="add noise to conditional network")
 
     # --------------- optimizer and loss ---------------
-    parser.add_argument("--batch-size",     type=int,   default=256)
+    parser.add_argument("--batch-size",     type=int,   default=16)
     parser.add_argument("--microbatch",     type=int,   default=2,           help="accumulate gradient over microbatch until full batch-size")
-    parser.add_argument("--num-itr",        type=int,   default=1000000,     help="training iteration")
+    parser.add_argument("--num-itr",        type=int,   default=2000000,     help="training iteration")
     parser.add_argument("--lr",             type=float, default=5e-5,        help="learning rate")
     parser.add_argument("--lr-gamma",       type=float, default=0.99,        help="learning rate decay ratio")
     parser.add_argument("--lr-step",        type=int,   default=1000,        help="learning rate decay step size")
@@ -107,17 +100,19 @@ def create_training_options():
         ckpt_file = RESULT_DIR / opt.ckpt / "latest.pt"
         assert ckpt_file.exists()
         opt.load = ckpt_file
+        # print("checkpoint loaded!")
     else:
         opt.load = None
 
     # ========= auto assert =========
     assert opt.batch_size % opt.microbatch == 0, f"{opt.batch_size=} is not dividable by {opt.microbatch}!"
+
     return opt
 
 def main(opt):
     log = Logger(opt.global_rank, opt.log_dir)
     log.info("=======================================================")
-    log.info("         Image-to-Image Schrodinger Bridge")
+    log.info("         Paired Schrodinger Bridge Solver")
     log.info("=======================================================")
     log.info("Command used:\n{}".format(" ".join(sys.argv)))
     log.info(f"Experiment ID: {opt.name}")
@@ -126,30 +121,40 @@ def main(opt):
     if opt.seed is not None:
         set_seed(opt.seed + opt.global_rank)
 
-    # build imagenet dataset
-    train_dataset = imagenet.build_lmdb_dataset(opt, log, train=True)
-    val_dataset   = imagenet.build_lmdb_dataset(opt, log, train=False)
+    # build dataset
+    # train_dataset = imagenet.build_lmdb_dataset(opt, log, train=True)
+    # val_dataset   = imagenet.build_lmdb_dataset(opt, log, train=False)
+
+    DATASET = datasets.AllData(opt)
+    
+    train_dataset, val_dataset = DATASET.get_loaders()
+    # train_dataset = dataset.Dataset(opt, log, train=True)
+    # val_dataset   = dataset.Dataset(opt, log, train=False)
+
+    # exit()
+
     # note: images should be normalized to [-1,1] for corruption methods to work properly
+    # if opt.corrupt == "mixture":
+    #     import corruption.mixture as mix
+    #     train_dataset = mix.MixtureCorruptDatasetTrain(opt, train_dataset)
+    #     val_dataset = mix.MixtureCorruptDatasetVal(opt, val_dataset)
 
-    if opt.corrupt == "mixture":
-        import corruption.mixture as mix
-        train_dataset = mix.MixtureCorruptDatasetTrain(opt, train_dataset)
-        val_dataset = mix.MixtureCorruptDatasetVal(opt, val_dataset)
+    # # build corruption method
+    # corrupt_method = build_corruption(opt, log)
 
-    # build corruption method
-    corrupt_method = build_corruption(opt, log)
 
     run = Runner(opt, log)
-    run.train(opt, train_dataset, val_dataset, corrupt_method)
+    # run.train(opt, train_dataset, val_dataset)
+    run.eval(opt, val_dataset)
     log.info("Finish!")
 
 if __name__ == '__main__':
     opt = create_training_options()
 
-    assert opt.corrupt is not None
+    # assert opt.corrupt is not None
 
     # one-time download: ADM checkpoint
-    download_ckpt("data/")
+    # download_ckpt("data/")
 
     if opt.distributed:
         size = opt.n_gpu_per_node

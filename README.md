@@ -19,11 +19,22 @@ We introduce *Astro-DSB* tailored for astrophysical observational inverse predic
 
 Our key contributions can be summarized below:
 
-- From the astrophysical perspective, our proposed paired DSB method improves interpretability, learning efficiency, and prediction performance over conventional astrostatistical and other machine learning methods.
+- From the astrophysical perspective, our proposed paired DSB method improves **interpretability, learning efficiency, and prediction performance** over conventional astrostatistical and other machine learning methods.
 
-- From the generative modeling perspective, we show that probabilistic generative modeling yields improvements over discriminative pixel-to-pixel modeling in Out-Of-Distribution (OOD) testing cases of physical simulations with unseen initial conditions and different dominant physical processes.
+- From the generative modeling perspective, we show that probabilistic generative modeling yields improvements over discriminative pixel-to-pixel modeling in Out-Of-Distribution (OOD) testing cases of physical simulations **with unseen initial conditions and different dominant physical processes**.
 
-Our study expands research into diffusion models beyond the traditional visual synthesis application and provides evidence of the models’ learning abilities beyond pure data statistics, paving a path for future physics-aware generative models that can align dynamics between machine learning and real (astro)physical systems.
+Our study expands research into diffusion models beyond the traditional visual synthesis application and provides evidence of **the models’ learning abilities beyond pure data statistics**, paving a path for future physics-aware generative models that can align dynamics between machine learning and real (astro)physical systems.
 
 ## 2. Environment setup
+
+You can follow the instructions below to setup the running environment. After setting 
+
+```
+conda env create --file requirements.yaml python=3
+conda activate astrodsb
+```
+
+## 3. Traning
+
+
 

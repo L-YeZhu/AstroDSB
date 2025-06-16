@@ -1,4 +1,4 @@
-name: i2sb
+name: astrodsb
 channels:
   - anaconda
   - pytorch
