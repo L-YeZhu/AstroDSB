@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------------------------------
-# Core code for Astro-DSB for astrophysical observational inversion, for submission review only
+# Core code for Astro-DSB for astrophysical observational inversion
 # --------------------------------------------------------------------------------------------------
 
 import os
