@@ -1,8 +1,8 @@
 # Astrophysical Diffusion Schrödinger Bridge (Astro-DSB)
 
-Ye Zhu (CS, Princeton), Duo Xu (CITA, University of Toronto), Zhiwei Deng (Google DeepMind), Jonathan C. Tan (Astronomy, UVA&Chalmers), Olga Russakovsky (CS, Princeton)
+Ye Zhu (CS, Princeton & CS, École Polytechniaue), Duo Xu (CITA, University of Toronto), Zhiwei Deng (Google DeepMind), Jonathan C. Tan (Astronomy, UVA&Chalmers), Olga Russakovsky (CS, Princeton)
 
-This is the official Pytorch implementation of the paper **[Dynamic Diffusion Schrödinger Bridge in Astrophysical Observational Inversions](https://www.arxiv.org/abs/2506.08065)**. 
+This is the official Pytorch implementation of the NeurIPS 2025 paper **[Dynamic Diffusion Schrödinger Bridge in Astrophysical Observational Inversions](https://www.arxiv.org/abs/2506.08065)**. 
 
 Below we show the predicted results from our Astro-DSB model on **both synthetic simulations and real observations (the Taurus B213 data)** for volume density and magnetic field strength.
 
@@ -12,11 +12,6 @@ Below we show the predicted results from our Astro-DSB model on **both synthetic
  <p align="center">
     <img src="assets/taurus.png" width="750">
 
-
-### Some TODOs
-
-- [ ] Pre-trained model checkpoints
-- [ ] Datasets (if they are interesting to our communities)
 
 
 ## 1. Take-away
@@ -56,15 +51,29 @@ python train.py --name 'expid' --n-gpu-per-node $N
 python eval.py --name 'expid' 
 ```
 
-## 5. Citation and other related works
+
+## 5. Datasets and Model Checkpoints
+
+We provide the pretrained model checkpoints and the astrophysical datasets used in our work to promote open access and facilitate the reproducibility of our scientific contributions.
+
+- Pre-trained Astro-DSB for density prediction: [model checkpoint](https://drive.google.com/file/d/14N0hvJWBKqJBUudpIaZ60Fng_hwH7qj1/view?usp=share_link).
+
+- Pre-trained Astro-DSB for magnetfic field estimation: [model checkpoint](https://drive.google.com/file/d/1bdOCd03v5RslTG4-kE8prr1l6qLVvkjQ/view?usp=share_link).
+
+- Density prediction dataset: [density dataset](https://drive.google.com/file/d/1GSh82Fm84GJbgDKBGjG98AtGNAElN4Dx/view?usp=share_link).
+
+- Magnetic field dataset: [B field dataset](https://drive.google.com/file/d/1tA_GwXEMfva4JjMzwqfP71qfFSuPJqFg/view?usp=share_link).
+
+
+## 6. Citation and other related works
 
 If you find our work interesting and useful, please consider citing it.
 ```
-@article{zhu2025dynamic,
-  title={Dynamic Diffusion Schrödinger Bridge in Astrophysical Observational Inversions},
-  author={Zhu, Ye and Xu, Duo and Deng, Zhiwei and Tan, Jonathon C and Russakovsky, Olga},
-  journal={arXiv preprint arXiv:2506.08065},
-  year={2025}
+@inproceedings{zhu2025dynamic,
+  title = {Dynamic Diffusion Schrödinger Bridge in Astrophysical Observational Inversions},
+  author = {Zhu, Ye and Xu, Duo and Deng, Zhiwei and Tan, Jonathan and Russakovsky, Olga},
+  booktitle = {Conference on Neural Information Processing Systems (NeurIPS)},
+  year = {2025},
 }
 ```
 
